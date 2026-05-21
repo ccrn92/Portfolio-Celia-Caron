@@ -145,7 +145,15 @@ nav.scrolled { padding:1rem 3rem; border-color:var(--rule); }
 .nav-burger.open span:nth-child(3){ transform:translateY(-6px) rotate(-45deg); }
 
 @media(max-width:768px){
-  nav { padding:1.1rem 1.5rem; }
+  nav {
+    padding:1.1rem 1.5rem;
+    /* Supprimer backdrop-filter sur mobile : il crée un contexte de positionnement
+       qui empêche position:fixed de fonctionner sur Firefox/iPad/Safari */
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    background:var(--bg);
+  }
+  [data-theme="dark"] nav { background:var(--bg); }
   nav.scrolled { padding:.85rem 1.5rem; }
   .nav-links {
     position:fixed; top:0; right:-110%; bottom:0; width:75%;
@@ -797,7 +805,6 @@ footer {
       <li><a href="#works"    onclick="showHome();closeMenu();setTimeout(()=>document.getElementById('works-section').scrollIntoView({behavior:'smooth'}),100);return false;">Projets</a></li>
       <li><a href="#parcours" onclick="showHome();closeMenu();setTimeout(()=>document.getElementById('parcours-section').scrollIntoView({behavior:'smooth'}),100);return false;">Mon parcours</a></li>
       <li><a href="#contact"  onclick="showHome();closeMenu();setTimeout(()=>document.getElementById('contact-section').scrollIntoView({behavior:'smooth'}),100);return false;">Contact</a></li>
-
     </ul>
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Basculer thème"></button>
     <button class="nav-burger" id="burger" onclick="toggleMenu()" aria-label="Menu">
