@@ -1214,8 +1214,8 @@ function renderBlock(b){
     const f1=b.typoFont1||'var(--serif)';
     const f2=b.typoFont2||'var(--sans)';
     const f3=b.typoFont3||'monospace';
-    const extraBlock=b.typoExtra?`<div class="typo-block"><div class="typo-sample" style="font-family:${f3}">${b.typoExtra}</div><div class="typo-info">Extra</div></div>`:'';
-    body=`<div class="typo-row"><div class="typo-block"><div class="typo-sample" style="font-family:${f1};font-weight:700">${b.typoTitle||''}</div><div class="typo-info">Titre — Display</div></div><div class="typo-block"><div class="typo-sample" style="font-family:${f2};font-weight:300">${b.typoBody||''}</div><div class="typo-info">Corps de texte</div></div>${extraBlock}</div>`;
+    const extraBlock=b.typoExtra?`<div class="typo-block"><div class="typo-sample" style="font-family:${f3}">${b.typoExtra}</div><div class="typo-info">${b.typoInfo3||'Extra'}</div></div>`:'';
+    body=`<div class="typo-row"><div class="typo-block"><div class="typo-sample" style="font-family:${f1};font-weight:700">${b.typoTitle||''}</div><div class="typo-info">${b.typoInfo1||'Titre — Display'}</div></div><div class="typo-block"><div class="typo-sample" style="font-family:${f2};font-weight:300">${b.typoBody||''}</div><div class="typo-info">${b.typoInfo2||'Corps de texte'}</div></div>${extraBlock}</div>`;
   } else if(layout==='text'){
     body=`<p class="block-desc" style="max-width:100%">${b.text||''}</p>`;
   } else if(layout==='text-image'){
@@ -1306,7 +1306,11 @@ const PROJECTS={
     typoFont1:"'Libre Bodoni', Georgia, serif",
     typoFont2:"'Lato', sans-serif",
     typoFont3:"'Courier New', monospace",
+    typoInfo1:"Titres d'articles · Citations",
+    typoInfo2:'Corps de texte · Légendes',
+    typoInfo3:'Extra',
     logicielsImg:'résidu/logiciels.png',
+    logicielsStyle:'max-width:160px',
     sections:[
       {label:'Livrables',items:['Logo & charte graphique','Maquette éditoriale complète','Direction artistique','Identité visuelle']},
     ],
@@ -1314,7 +1318,7 @@ const PROJECTS={
       {title:'Moodboard',layout:'full',imgs:['résidu/moodboard residu.png']},
       {title:'Résidu — Définition',layout:'medium',imgs:['résidu/zone définition residu.png']},
       {title:'Recherches de logo',layout:'full',imgs:['résidu/recherches logos residu.png']},
-      {title:'Palette de couleurs',layout:'palette',desc:'Noir profond, beige argentique et or mat. Des couleurs qui renvoient directement à l\'univers du cinéma analogique. La salle obscure, la pellicule, la lumière travaillée. Une palette sobre qui laisse toute la place au contenu éditorial.'},
+      {title:'Palette de couleurs',layout:'palette',desc:"Quatre teintes tirées directement de l'univers argentique. Le noir dense comme fond de salle, le beige clair comme une pellicule non développée, l'or et le brun comme les tons chauds d'une photo surexposée. Une palette qui n'emprunte rien à la mode et tout au cinéma analogique."},
       {title:'Typographies',layout:'typo'},
       {title:'Logos',layout:'full',imgs:['résidu/zone logos residu.png']},
       {title:'Extraits du magazine',layout:'full',imgs:['résidu/zone extraits magazine.png']},
@@ -1546,7 +1550,7 @@ function openProject(id){
 
   const imgBlocks=(p.imageBlocks||[]).map(b=>{
     if(b.layout==='palette') return renderBlock({...b,palette:p.palette,paletteNames:p.paletteNames});
-    if(b.layout==='typo') return renderBlock({...b,typoTitle:p.typoTitle,typoBody:p.typoBody,typoExtra:p.typoExtra,typoFont1:p.typoFont1,typoFont2:p.typoFont2,typoFont3:p.typoFont3});
+    if(b.layout==='typo') return renderBlock({...b,typoTitle:p.typoTitle,typoBody:p.typoBody,typoExtra:p.typoExtra,typoFont1:p.typoFont1,typoFont2:p.typoFont2,typoFont3:p.typoFont3,typoInfo1:p.typoInfo1,typoInfo2:p.typoInfo2,typoInfo3:p.typoInfo3});
     return renderBlock(b);
   }).join('');
 
