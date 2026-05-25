@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Célia Caron — Directrice Artistique & Graphiste</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Libre+Bodoni:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════════════
    TOKENS & RESET
@@ -391,6 +391,7 @@ h1.hero-name em { display:block; font-style:italic; color:var(--gold); }
 .card:hover .card-bg { transform:scale(1.05); }
 
 .c-gloss  .card-bg { background:linear-gradient(135deg,#F0CBD5,#FAEAEA); color:#A84060; }
+.c-resi   .card-bg { background:linear-gradient(135deg,#111110,#1E1A12); color:#A08545; }
 .c-gels   .card-bg { background:linear-gradient(135deg,#C0A0C8,#EEB0D0); color:#FFFFFF; }
 .c-dour   .card-bg { background:linear-gradient(135deg,#0E0D28,#281442); color:#0CF0D0; }
 .c-sale   .card-bg { background:linear-gradient(135deg,#0C2490,#5468D0); color:#FFFFFF; }
@@ -718,6 +719,7 @@ footer {
 .img-xsmall-wrap { max-width:220px; margin:0 auto; }
 
 /* ─ Thumbnails cartes ─ */
+.c-resi  .card-bg { background:linear-gradient(135deg,rgba(10,10,8,.5),rgba(26,20,10,.45)),url('résidu/cover Résidu VF.png') center/cover no-repeat; }
 .c-gloss .card-bg { background:linear-gradient(135deg,rgba(240,203,213,.55),rgba(250,234,234,.55)),url('gloss/photos/photo 8.png') center/cover no-repeat; }
 .c-gels  .card-bg { background:linear-gradient(135deg,rgba(70,43,122,.3),rgba(180,0,60,.2)),url('gels/photos/photo 8.png') center/cover no-repeat; }
 .c-dour  .card-bg { background:linear-gradient(135deg,rgba(11,255,211,.15),rgba(10,8,32,.45)),url('dour/cover dour.jpeg') center/cover no-repeat; }
@@ -921,6 +923,18 @@ footer {
             <span class="ov-cta">Voir le projet <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></span>
           </div>
           <div class="card-foot"><span class="cf-name">Gloss Pailletés — Si Si La Paillette</span><span class="cf-year">2023</span></div>
+        </div>
+
+        <!-- RÉSIDU -->
+        <div class="card c-resi" data-cats="branding" onclick="openProject('residu')">
+          <div class="card-bg">Résidu.</div>
+          <div class="card-overlay">
+            <span class="ov-cat">Personnel · 2024</span>
+            <p class="ov-title">Résidu<br>Magazine Cinéma</p>
+            <p class="ov-sub">Branding · Direction artistique · Éditorial</p>
+            <span class="ov-cta">Voir le projet <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></span>
+          </div>
+          <div class="card-foot"><span class="cf-name">Résidu — Magazine Cinéma</span><span class="cf-year">2024</span></div>
         </div>
 
         <!-- GELS -->
@@ -1191,10 +1205,17 @@ function renderBlock(b){
   if(layout==='logiciels'){
     body=`<div class="logiciels-wrap"><img src="${imgs[0]}" alt="Logiciels" loading="lazy"></div>`;
   } else if(layout==='palette'){
+    const desc=b.desc?`<p class="block-desc">${b.desc}</p>`:'';
     const sw=(b.palette||[]).map((c,i)=>`<div class="swatch"><div class="swatch-color" style="background:${c}"></div><div class="swatch-code">${c}<br><span style="font-size:.58rem;color:var(--mid)">${(b.paletteNames||[])[i]||''}</span></div></div>`).join('');
-    body=`<div class="palette">${sw}</div>`;
+    body=`${desc}<div class="palette">${sw}</div>`;
   } else if(layout==='typo'){
-    body=`<div class="typo-row"><div class="typo-block"><div class="typo-sample" style="font-family:var(--serif);font-weight:600">${b.typoTitle||''}</div><div class="typo-info">Titre — Display</div></div><div class="typo-block"><div class="typo-sample" style="font-family:var(--sans);font-weight:300">${b.typoBody||''}</div><div class="typo-info">Corps de texte</div></div></div>`;
+    const f1=b.typoFont1||'var(--serif)';
+    const f2=b.typoFont2||'var(--sans)';
+    const f3=b.typoFont3||'monospace';
+    const extraBlock=b.typoExtra?`<div class="typo-block"><div class="typo-sample" style="font-family:${f3}">${b.typoExtra}</div><div class="typo-info">Extra</div></div>`:'';
+    body=`<div class="typo-row"><div class="typo-block"><div class="typo-sample" style="font-family:${f1};font-weight:700">${b.typoTitle||''}</div><div class="typo-info">Titre — Display</div></div><div class="typo-block"><div class="typo-sample" style="font-family:${f2};font-weight:300">${b.typoBody||''}</div><div class="typo-info">Corps de texte</div></div>${extraBlock}</div>`;
+  } else if(layout==='text'){
+    body=`<p class="block-desc" style="max-width:100%">${b.text||''}</p>`;
   } else if(layout==='text-image'){
     body=`<p class="block-desc">${b.text||''}</p><img src="${(imgs||[])[0]||''}" alt="${b.title}" loading="lazy" style="border-radius:4px;display:block;${b.imgStyle||'width:100%'}">`;
   } else if(layout==='xsmall'){
@@ -1260,7 +1281,41 @@ const PROJECTS={
       {title:'PLV',layout:'full',imgs:['gloss/PLV gloss.png']},
       {title:'Site web — Desktop & Mobile',layout:'duo',imgs:['gloss/site web ordi sslp.png','gloss/site web tel sslp.png']},
     ],
-    prev:null, next:'gels',
+    prev:null, next:'residu',
+  },
+
+  residu:{
+    title:'Résidu',
+    sub:'Magazine Cinéma — Projet personnel',
+    type:'Projet personnel',
+    year:'2024',
+    cats:['Branding','Direction artistique','Éditorial'],
+    heroGradient:'linear-gradient(135deg,#0A0A08,#1E1A10)',
+    heroColor:'#A08545',
+    context:`Résidu est né d'une double passion pour l'image argentique et les métiers de l'ombre du cinéma. Ce projet éditorial personnel imagine un magazine qui donne enfin la parole à ceux qui façonnent un film sans jamais apparaître à l'affiche : <strong>directeurs artistiques, costumiers, chefs opérateurs, décorateurs de plateau.</strong>`,
+    context2:`Avec une esthétique ancrée dans les années 70-80 — grain pellicule, typographie dense, mise en page serrée — Résidu choisit délibérément de rendre hommage à un cinéma de savoir-faire. Le titre est un manifeste : le résidu, c'est ce qui reste quand on enlève les lumières et les acteurs.`,
+    palette:['#111110','#CFC0A4','#A08545'],
+    paletteNames:['Noir profond','Beige argentique','Or mat'],
+    typoTitle:'Libre Bodoni',
+    typoBody:'Lato',
+    typoExtra:'Courier New',
+    typoFont1:"'Libre Bodoni', Georgia, serif",
+    typoFont2:"'Lato', sans-serif",
+    typoFont3:"'Courier New', monospace",
+    logicielsImg:null,
+    sections:[
+      {label:'Livrables',items:['Logo & charte graphique','Maquette éditoriale complète','Direction artistique','Identité visuelle']},
+    ],
+    imageBlocks:[
+      {title:'Moodboard',layout:'full',imgs:['résidu/moodboard residu.png']},
+      {title:'Résidu — Définition',layout:'full',imgs:['résidu/zone définition residu.png']},
+      {title:'Recherches de logo',layout:'full',imgs:['résidu/recherches logos residu.png']},
+      {title:'Palette de couleurs',layout:'palette',desc:'Noir profond, beige argentique et or mat. Des couleurs qui renvoient directement à l\'univers du cinéma analogique. La salle obscure, la pellicule, la lumière travaillée. Une palette sobre qui laisse toute la place au contenu éditorial.'},
+      {title:'Typographies',layout:'typo'},
+      {title:'Logos',layout:'text-image',text:'Point de départ : Saira Condensed 900, choisie pour sa densité et son impact. Entièrement vectorisée et retravaillée pour créer un signe unique. L\'inclinaison et la compression ne sont pas des effets de fonte mais des choix construits lettre par lettre.',imgs:['résidu/zone logos residu.png']},
+      {title:'Extraits du magazine',layout:'gallery',imgs:['résidu/extrait mag 1.png','résidu/autres/mockup cover residu.png']},
+    ],
+    prev:'gloss', next:'gels',
   },
 
   gels:{
@@ -1292,7 +1347,7 @@ const PROJECTS={
       {title:'Site web — Desktop & Mobile',layout:'duo',imgs:['gels/site web ordi.png','gels/site web tel.png']},
       {title:'Page produit',layout:'small',imgs:['gels/page produit site web.png']},
     ],
-    prev:'gloss', next:'starbricks',
+    prev:'residu', next:'starbricks',
   },
 
   dour:{
@@ -1487,7 +1542,7 @@ function openProject(id){
 
   const imgBlocks=(p.imageBlocks||[]).map(b=>{
     if(b.layout==='palette') return renderBlock({...b,palette:p.palette,paletteNames:p.paletteNames});
-    if(b.layout==='typo') return renderBlock({...b,typoTitle:p.typoTitle,typoBody:p.typoBody});
+    if(b.layout==='typo') return renderBlock({...b,typoTitle:p.typoTitle,typoBody:p.typoBody,typoExtra:p.typoExtra,typoFont1:p.typoFont1,typoFont2:p.typoFont2,typoFont3:p.typoFont3});
     return renderBlock(b);
   }).join('');
 
