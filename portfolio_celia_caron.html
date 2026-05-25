@@ -755,6 +755,8 @@ footer {
 /* ─ Image petite (packaging) ─ */
 .img-small-wrap{max-width:360px;margin:0 auto;}
 .img-small-wrap img{width:100%;display:block;border-radius:4px;}
+.img-medium-wrap{max-width:520px;margin:0 auto;}
+.img-medium-wrap img{width:100%;display:block;border-radius:4px;}
 
 /* ─ Site web Desktop + Mobile ─ */
 .siteweb-duo{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem;align-items:start;}
@@ -1222,6 +1224,8 @@ function renderBlock(b){
     body=`<div class="img-xsmall-wrap"><img src="${imgs[0]}" alt="" loading="lazy"></div>`;
   } else if(layout==='small'){
     body=`<div class="img-small-wrap"><img src="${imgs[0]}" alt="" loading="lazy"></div>`;
+  } else if(layout==='medium'){
+    body=`<div class="img-medium-wrap"><img src="${imgs[0]}" alt="" loading="lazy"></div>`;
   } else if(layout==='full'){
     body=`<img class="img-full${b.contain?' contain':''}" src="${imgs[0]}" alt="${b.title}" loading="lazy">`;
   } else if(layout==='gallery'){
@@ -1295,7 +1299,7 @@ const PROJECTS={
     context:`Résidu est un <strong>projet éditorial</strong> personnel imaginant un magazine qui donne enfin la parole à ceux qui façonnent un film sans jamais apparaître à l'affiche : directeurs artistiques, costumiers, chefs opérateurs, décorateurs de plateau.`,
     context2:`Avec une esthétique ancrée dans les années 70-80, grain pellicule, typographie dense, mise en page serrée, Résidu choisit délibérément de rendre hommage à un cinéma de savoir-faire. <strong>Le titre est un manifeste : le résidu, c'est ce qui reste quand on enlève les lumières et les acteurs.</strong>`,
     palette:['#111110','#CFC0A4','#A08545','#765D43'],
-    paletteNames:['Noir profond','Beige argentique','Or mat','Brun'],
+    paletteNames:['Noir','Beige','Or','Brun'],
     typoTitle:'Libre Bodoni',
     typoBody:'Lato',
     typoExtra:'Courier New',
@@ -1308,7 +1312,7 @@ const PROJECTS={
     ],
     imageBlocks:[
       {title:'Moodboard',layout:'full',imgs:['résidu/moodboard residu.png']},
-      {title:'Résidu — Définition',layout:'small',imgs:['résidu/zone définition residu.png']},
+      {title:'Résidu — Définition',layout:'medium',imgs:['résidu/zone définition residu.png']},
       {title:'Recherches de logo',layout:'full',imgs:['résidu/recherches logos residu.png']},
       {title:'Palette de couleurs',layout:'palette',desc:'Noir profond, beige argentique et or mat. Des couleurs qui renvoient directement à l\'univers du cinéma analogique. La salle obscure, la pellicule, la lumière travaillée. Une palette sobre qui laisse toute la place au contenu éditorial.'},
       {title:'Typographies',layout:'typo'},
