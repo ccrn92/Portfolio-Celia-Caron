@@ -1227,7 +1227,8 @@ function renderBlock(b){
   } else if(layout==='medium'){
     body=`<div class="img-medium-wrap"><img src="${imgs[0]}" alt="" loading="lazy"></div>`;
   } else if(layout==='full'){
-    body=`<img class="img-full${b.contain?' contain':''}" src="${imgs[0]}" alt="${b.title}" loading="lazy">`;
+    const videoExtra=b.videoSrc?`<video class="proj-video" style="margin-top:1rem" controls playsinline><source src="${b.videoSrc}" type="video/mp4"></video>`:'';
+    body=`<img class="img-full${b.contain?' contain':''}" src="${imgs[0]}" alt="${b.title}" loading="lazy">${videoExtra}`;
   } else if(layout==='gallery'){
     const js='['+imgs.map(s=>`'${s.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}'`).join(',')+']';
     body=`<div class="photo-gallery">${imgs.map((s,i)=>`<div class="gal-item" onclick="lbOpen(${js},${i})"><img src="${s}" alt="" loading="lazy"></div>`).join('')}</div>`;
@@ -1321,8 +1322,7 @@ const PROJECTS={
       {title:'Palette de couleurs',layout:'palette',desc:"Quatre teintes tirées directement de l'univers argentique. Le noir dense comme fond de salle, le beige clair comme une pellicule non développée, l'or et le brun comme les tons chauds d'une photo surexposée. Une palette qui n'emprunte rien à la mode et tout au cinéma analogique."},
       {title:'Typographies',layout:'typo'},
       {title:'Logos',layout:'full',imgs:['résidu/zone logos residu.png']},
-      {title:'Extraits du magazine',layout:'full',imgs:['résidu/zone extraits magazine.png']},
-      {title:'Animation',layout:'video',imgs:['résidu/GIF residu.mp4']},
+      {title:'Extraits du magazine',layout:'full',imgs:['résidu/zone extraits magazine.png'],videoSrc:'résidu/GIF residu.mp4'},
     ],
     prev:'gloss', next:'gels',
   },
